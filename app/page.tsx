@@ -1,69 +1,150 @@
-import Image from "next/image";
+import { getUpcomingEvents } from "@/lib/event";
+import EventsContent from "@/components/EventsContent";
 
-export default function Home() {
+export default async function Home() {
+  const upcomingEvents = await getUpcomingEvents();
+
   return (
-    <div className="flex flex-col flex-1 items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex flex-1 w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Image
-          className="dark:invert h-5 w-[100px]"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the{" "}
-            <code className="rounded bg-black/[.06] px-1.5 py-0.5 font-mono text-[0.9em] dark:bg-white/[.08]">
-              page.tsx
-            </code>{" "}
-            file.
-          </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Learning
-            </a>{" "}
-            center.
-          </p>
-        </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
-          <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert h-[14px] w-4"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={14}
-            />
-            Deploy Now
-          </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
-        </div>
-      </main>
-    </div>
+    <EventsContent events={upcomingEvents} />
+
+    // <div className="min-h-dvh flex flex-col flex-1 items-center justify-center gap-4 p-4 bg-zinc-50 font-sans dark:bg-black">
+    //   {cageWarriorsUpcomingEvents.map((fight) => (
+    //     <div
+    //       key={fight.id}
+    //       className="relative w-full flex flex-col gap-2 items-center"
+    //     >
+    //       <Image
+    //         src={fight.imageUrl ?? "/images/cage-warriors.png"}
+    //         alt={fight.name}
+    //         width={400}
+    //         height={200}
+    //         loading="lazy"
+    //         className="rounded-lg"
+    //       />
+
+    //       <div className="w-full flex flex-col">
+    //         <h2 className="text-xl font-bold text-center">{fight.name}</h2>
+    //         <p className="text-center">
+    //           {format(fight.date, "EEEE dd MMM yyyy", { locale: fr })}
+    //         </p>
+    //         <p className="text-center">{fight.location}</p>
+    //       </div>
+    //     </div>
+    //   ))}
+
+    //   {hexagoneUpcomingEvents.map((fight) => (
+    //     <div
+    //       key={fight.id}
+    //       className="relative w-full flex flex-col gap-2 items-center"
+    //     >
+    //       <Image
+    //         src={fight.imageUrl ?? "/images/hexagone-mma.png"}
+    //         alt={fight.name}
+    //         width={400}
+    //         height={200}
+    //         loading="lazy"
+    //         className="rounded-lg"
+    //       />
+
+    //       <div className="w-full flex flex-col">
+    //         <h2 className="text-xl font-bold text-center">{fight.name}</h2>
+    //         <p className="text-center">
+    //           {format(fight.date, "EEEE dd MMM yyyy", { locale: fr })}
+    //         </p>
+    //         <p className="text-center">{fight.location}</p>
+    //       </div>
+    //     </div>
+    //   ))}
+
+    //   {kswUpcomingEvents.map((fight) => (
+    //     <div
+    //       key={fight.id}
+    //       className="relative w-full flex flex-col gap-2 items-center"
+    //     >
+    //       <Image
+    //         src={fight.imageUrl ?? "/images/ksw.png"}
+    //         alt={fight.name}
+    //         width={400}
+    //         height={200}
+    //         loading="lazy"
+    //         className="rounded-lg"
+    //       />
+
+    //       <div className="w-full flex flex-col">
+    //         <h2 className="text-xl font-bold text-center">{fight.name}</h2>
+    //         <h3 className="text-lg font-semibold text-center">{fight.title}</h3>
+    //         <p className="text-center">
+    //           {format(fight.date, "EEEE dd MMM yyyy", { locale: fr })}
+    //         </p>
+    //         <p className="text-center">{fight.location}</p>
+    //       </div>
+    //     </div>
+    //   ))}
+
+    //   {pflUpcomingEvents.map((fight) => (
+    //     <div
+    //       key={fight.id}
+    //       className="relative w-full flex flex-col gap-2 items-center"
+    //     >
+    //       <Image
+    //         src={fight.imageUrl ?? "/images/pfl.png"}
+    //         alt={fight.name}
+    //         width={400}
+    //         height={200}
+    //         loading="lazy"
+    //         className="rounded-lg"
+    //       />
+
+    //       <div className="w-full flex flex-col">
+    //         <h2 className="text-xl font-bold text-center">{fight.name}</h2>
+    //         <p className="text-center">
+    //           {format(fight.date, "EEEE dd MMM yyyy", { locale: fr })}
+    //         </p>
+    //         <p className="text-center">{fight.location}</p>
+    //       </div>
+    //     </div>
+    //   ))}
+
+    //   {ufcUpcomingEvents.map((fight) => (
+    //     <div
+    //       key={fight.id}
+    //       className="relative w-full flex flex-col gap-2 items-center"
+    //     >
+    //       <div className="relative flex h-32 w-full">
+    //         {/* SVG */}
+    //         <div
+    //           dangerouslySetInnerHTML={{ __html: fight.svg }}
+    //           className="logo-svg absolute top-1/2 -translate-y-1/2 w-20 h-auto fill-current text-white dark:text-black"
+    //         ></div>
+    //         <Image
+    //           src={fight.redCornerImage}
+    //           alt="Red Corner"
+    //           width="205"
+    //           height="128"
+    //           loading="lazy"
+    //           className="absolute w-auto h-32 top-0 right-1/2 translate-x-1/6"
+    //         />
+    //         <Image
+    //           src={fight.blueCornerImage}
+    //           alt="Blue Corner"
+    //           width="205"
+    //           height="128"
+    //           loading="lazy"
+    //           className="absolute w-auto h-32 top-0 left-1/2 -translate-x-1/6"
+    //         />
+    //       </div>
+
+    //       <div className="w-full flex flex-col">
+    //         <h2 className="text-xl font-bold text-center">{fight.name}</h2>
+    //         <p className="text-center">
+    //           {format(fight.date, "EEEE dd MMM yyyy, 'à' HH:mm", {
+    //             locale: fr,
+    //           })}
+    //         </p>
+    //         <p className="text-center">{fight.location}</p>
+    //       </div>
+    //     </div>
+    //   ))}
+    // </div>
   );
 }

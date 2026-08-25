@@ -1,0 +1,13 @@
+services:
+  mmaevent:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: mmaevent
+    ports:
+      - "3001:3000"
+    environment:
+      - NODE_ENV=production
+    # env_file:
+    #   - .env.production
+    restart: unless-stopped

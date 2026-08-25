@@ -1,36 +1,52 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Sports MMA
 
-## Getting Started
+Application web Next.js pour suivre les événements MMA à venir.
 
-First, run the development server:
+## Fonctionnalités
+
+- Vue liste des événements avec filtres par organisation.
+- Vue calendrier avec indicateurs par jour.
+- Affichage des détails d’un événement, dont la date et le lieu.
+- Navigation simple entre les organisations MMA suivies par l’application.
+
+## Installation
+
+Prérequis:
+
+- Node.js 18 ou plus.
+- `pnpm`.
+
+Installer les dépendances:
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+pnpm install
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Lancement en local
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+Démarrer le serveur de développement:
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+```bash
+pnpm dev
+```
 
-## Learn More
+Ouvrir ensuite [http://localhost:3000](http://localhost:3000) dans le navigateur.
 
-To learn more about Next.js, take a look at the following resources:
+## Commandes utiles
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+```bash
+pnpm build
+pnpm start
+pnpm lint
+```
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## Structure
 
-## Deploy on Vercel
+- `app/`: pages et layout Next.js.
+- `components/`: interface utilisateur, calendrier et liste d'événements.
+- `lib/`: logique de récupération et de transformation des données.
+- `types/`: types TypeScript partagés.
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## Notes
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Les données d’événements sont affichées côté client avec des vues liste et calendrier pour comparer rapidement les organisations et les dates.
