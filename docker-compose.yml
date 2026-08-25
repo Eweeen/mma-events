@@ -1,11 +1,11 @@
 services:
-  mmaevent:
+  mmaevents:
     build:
       context: .
       dockerfile: Dockerfile
-    container_name: mmaevent
-    ports:
-      - "3001:3000"
+    container_name: mmaevents
+    expose:
+      - "3000"
     environment:
       - NODE_ENV=production
     # env_file:
