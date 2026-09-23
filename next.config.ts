@@ -2,6 +2,7 @@ import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
   output: "standalone",
+  allowedDevOrigins: ["192.168.1.185"],
   images: {
     remotePatterns: [
       {
@@ -31,6 +32,12 @@ const nextConfig: NextConfig = {
       {
         protocol: "https",
         hostname: "cagewarriors.com",
+        port: "",
+        pathname: "/**",
+      },
+      {
+        protocol: "https",
+        hostname: "www.aresfighting.com",
         port: "",
         pathname: "/**",
       },

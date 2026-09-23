@@ -13,11 +13,11 @@ interface EventsContentProps {
 export default function EventsContent({
   events,
 }: EventsContentProps): JSX.Element {
-  const [view, setView] = useState<"list" | "calendar">("list");
+  const [view, setView] = useState<"list" | "calendar">("calendar");
   const [selectedDate, setSelectedDate] = useState<Date>(new Date());
 
   return (
-    <div className="min-h-dvh flex flex-col gap-4 p-4 bg-zinc-50 font-sans dark:bg-black">
+    <div className="min-h-dvh flex flex-col gap-4 p-1 bg-zinc-50 font-sans dark:bg-black">
       <header className="w-full flex justify-between items-center">
         <h1 className="text-2xl font-bold">Événements MMA</h1>
 

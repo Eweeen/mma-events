@@ -2,7 +2,7 @@
 
 import { HexagoneEvent, Organizer } from "@/types/event";
 import * as cheerio from "cheerio";
-import { parseFrenchDate } from "./date";
+import { parseFrenchDate } from "../date";
 
 const HEXAGONE_URL = "https://hexagonemma.fr/evenements";
 
@@ -43,7 +43,9 @@ function parseFights(html: string, isPast: boolean): HexagoneEvent[] {
     const location = text.split("–")[1]?.trim() ?? "";
 
     fights.push({
-      id: date ? date.getTime() + Math.floor(Math.random() * 1000) : Math.random(),
+      id: date
+        ? date.getTime() + Math.floor(Math.random() * 1000)
+        : Math.random(),
       name,
       url: "",
       fightCardImage,

@@ -1,19 +1,27 @@
 import { EventResponse } from "@/types/event";
-import { getUfcUpcomingEvents } from "./ufc";
-import { getPflUpcomingEvents } from "./pfl";
-import { getKswUpcomingEvents } from "./ksw";
-import { getHexagoneUpcomingEvents } from "./hexagone";
-import { getCageWarriorsUpcomingEvents } from "./cage-warriors";
+import { getUfcUpcomingEvents } from "./organizations/ufc";
+import { getPflUpcomingEvents } from "./organizations/pfl";
+import { getKswUpcomingEvents } from "./organizations/ksw";
+import { getHexagoneUpcomingEvents } from "./organizations/hexagone";
+import { getCageWarriorsUpcomingEvents } from "./organizations/cage-warriors";
+import { getAresUpcomingEvents } from "./organizations/ares";
 
 export async function getUpcomingEvents(): Promise<EventResponse> {
-  const [ufcEvents, pflEvents, kswEvents, hexagoneEvents, cageWarriorsEvents] =
-    await Promise.all([
-      getUfcUpcomingEvents(),
-      getPflUpcomingEvents(),
-      getKswUpcomingEvents(),
-      getHexagoneUpcomingEvents(),
-      getCageWarriorsUpcomingEvents(),
-    ]);
+  const [
+    ufcEvents,
+    pflEvents,
+    kswEvents,
+    hexagoneEvents,
+    cageWarriorsEvents,
+    aresEvents,
+  ] = await Promise.all([
+    getUfcUpcomingEvents(),
+    getPflUpcomingEvents(),
+    getKswUpcomingEvents(),
+    getHexagoneUpcomingEvents(),
+    getCageWarriorsUpcomingEvents(),
+    getAresUpcomingEvents(),
+  ]);
 
   return {
     ufcEvents,
@@ -21,5 +29,6 @@ export async function getUpcomingEvents(): Promise<EventResponse> {
     kswEvents,
     hexagoneEvents,
     cageWarriorsEvents,
+    aresEvents,
   };
 }

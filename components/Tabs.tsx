@@ -25,14 +25,14 @@ export function Tabs({
         return (
           <button
             key={tab.name}
-            className={`w-full rounded-xl p-1 flex items-center justify-center ${tab.name === selectedTab && "bg-foreground/20"}`}
+            className={`w-full rounded-xl p-1.5 flex items-center justify-center ${tab.name === selectedTab && "bg-foreground/20"}`}
             onClick={() => onTabSelect(tab.name)}
           >
             <Image
               src={tab.logo}
               alt={`${tab.name} Logo`}
-              width={50}
-              height={50}
+              width={80}
+              height={80}
               className={`object-contain ${tab.className ?? ""}`}
             />
           </button>

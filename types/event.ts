@@ -4,6 +4,7 @@ export enum Organizer {
   KSW = "KSW",
   HEXAGONE = "Hexagone MMA",
   CAGE_WARRIORS = "Cage Warriors",
+  ARES = "ARES FC",
 }
 
 export const organizations = [
@@ -11,6 +12,7 @@ export const organizations = [
   { name: Organizer.PFL, logo: "/images/pfl.png" },
   { name: Organizer.HEXAGONE, logo: "/images/hexagone-mma.png" },
   { name: Organizer.KSW, logo: "/images/ksw.png" },
+  { name: Organizer.ARES, logo: "/images/ares.png" },
   {
     name: Organizer.CAGE_WARRIORS,
     logo: "/images/cage-warriors.png",
@@ -24,6 +26,7 @@ export interface EventResponse {
   kswEvents: KswEvent[];
   hexagoneEvents: HexagoneEvent[];
   cageWarriorsEvents: Event[];
+  aresEvents: Event[];
 }
 
 export interface Event {

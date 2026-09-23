@@ -90,6 +90,53 @@ export function parseKswDate(rawDate: string): Date | null {
 }
 
 /**
+ * Le texte du bloc .date mélange deux formats :
+ * - "» le 25/09/2026"
+ * - "» le 15 janvier 2027"
+ */
+export function parseAresDate(rawText: string): Date | null {
+  const FRENCH_MONTHS: Record<string, number> = {
+    janvier: 0,
+    février: 1,
+    fevrier: 1,
+    mars: 2,
+    avril: 3,
+    mai: 4,
+    juin: 5,
+    juillet: 6,
+    août: 7,
+    aout: 7,
+    septembre: 8,
+    octobre: 9,
+    novembre: 10,
+    décembre: 11,
+    decembre: 11,
+  };
+  const text = rawText.replace(/\s+/g, " ").trim();
+
+  const numericMatch = text.match(/(\d{2})\/(\d{2})\/(\d{4})/);
+  if (numericMatch) {
+    const [, day, month, year] = numericMatch;
+    return new Date(Number(year), Number(month) - 1, Number(day));
+  }
+
+  const literalMatch = text
+    .toLowerCase()
+    .match(
+      /(\d{1,2})\s+(janvier|f[ée]vrier|mars|avril|mai|juin|juillet|ao[uû]t|septembre|octobre|novembre|d[ée]cembre)\s+(\d{4})/,
+    );
+  if (literalMatch) {
+    const [, day, monthName, year] = literalMatch;
+    const month = FRENCH_MONTHS[monthName];
+    if (month !== undefined) {
+      return new Date(Number(year), month, Number(day));
+    }
+  }
+
+  return null;
+}
+
+/**
  * Parse une date au format jj/mm/aaaa ou jj/mm/aa (ex: "28/07/2026" ou "22/02/26").
  * Retourne null si le format ne correspond pas.
  */

@@ -2,7 +2,7 @@
 
 import { Event, Organizer } from "@/types/event";
 import * as cheerio from "cheerio";
-import { parseEventDate } from "./date";
+import { parseEventDate } from "../date";
 
 const PFL_URL = "https://pflmma.com/events";
 

@@ -22,6 +22,7 @@ const organizerLabelByKey: Record<keyof EventResponse, Organizer> = {
   kswEvents: Organizer.KSW,
   hexagoneEvents: Organizer.HEXAGONE,
   cageWarriorsEvents: Organizer.CAGE_WARRIORS,
+  aresEvents: Organizer.ARES,
 };
 
 const getLocalDateKey = (date: Date) => {
@@ -90,11 +91,11 @@ export default function CalendarComponent({
           );
 
           return (
-            <div className="flex">
+            <div className="flex gap-0.5">
               {visibleOrganizations.map((organizer) => (
                 <div
                   key={organizer}
-                  className="w-7 h-7 bg-foreground/20 rounded-full flex items-center justify-center overflow-hidden"
+                  className="size-5 bg-foreground/20 rounded-full flex items-center justify-center overflow-hidden"
                 >
                   <Image
                     src={
@@ -102,13 +103,13 @@ export default function CalendarComponent({
                         ?.logo || ""
                     }
                     alt={`${organizer} Logo`}
-                    width={20}
-                    height={20}
+                    width={16}
+                    height={16}
                   />
                 </div>
               ))}
               {extraOrganizationCount > 0 ? (
-                <div className="w-7 h-7 bg-foreground/20 rounded-full text-xs flex items-center justify-center">
+                <div className="size-5 bg-foreground/20 rounded-full text-xs flex items-center justify-center">
                   +{extraOrganizationCount}
                 </div>
               ) : null}

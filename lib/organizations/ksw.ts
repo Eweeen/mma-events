@@ -1,6 +1,6 @@
 import { KswEvent, Organizer } from "@/types/event";
 import * as cheerio from "cheerio";
-import { parseKswDate } from "./date";
+import { parseKswDate } from "../date";
 
 const BASE_URL = "https://www.kswmma.com";
 const KSW_URL = "https://www.kswmma.com/en/events";

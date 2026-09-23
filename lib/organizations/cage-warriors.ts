@@ -2,7 +2,7 @@
 
 import { Event, Organizer } from "@/types/event";
 import * as cheerio from "cheerio";
-import { parseLongEnglishDate } from "./date";
+import { parseLongEnglishDate } from "../date";
 
 const CAGE_WARRIORS_URL = "https://cagewarriors.com/cage-warriors-events/";
 

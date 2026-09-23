@@ -41,7 +41,7 @@ export default function EventItem({ event }: EventItemProps): JSX.Element {
             {/* SVG */}
             <div
               dangerouslySetInnerHTML={{ __html: event.svg }}
-              className="logo-svg absolute top-1/2 -translate-y-1/2 w-20 h-auto fill-current text-white dark:text-black"
+              className="logo-svg absolute top-6 left-1/2 -translate-x-1/2 w-20 h-auto fill-current text-white dark:text-black"
             ></div>
             <Image
               src={event.redCornerImage}

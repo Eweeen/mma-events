@@ -37,6 +37,9 @@ export default function ListView({ events }: ListViewProps): JSX.Element {
     case Organizer.CAGE_WARRIORS:
       filteredEvents = events.cageWarriorsEvents;
       break;
+    case Organizer.ARES:
+      filteredEvents = events.aresEvents;
+      break;
     case Organizer.UFC:
     default:
       filteredEvents = events.ufcEvents;
