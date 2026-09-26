@@ -52,3 +52,40 @@ export interface KswEvent extends Event {
 export interface HexagoneEvent extends Event {
   fightCardImage: string;
 }
+
+export interface UfcFightCard {
+  mainCard: {
+    date: Date;
+    fights: UfcFight[]
+  };
+  prelims: {
+    date: Date;
+    fights: UfcFight[]
+  };
+  earlyPrelims?: {
+    date: Date;
+    fights: UfcFight[]
+  };
+}
+
+export interface UfcFight {
+  order: number;
+  weightClass: string;
+  redCorner: UfcFighter;
+  blueCorner: UfcFighter;
+  result?: {
+    winner: "red" | "blue";
+    method: string;
+    round: number;
+    time: string;
+  };
+}
+
+export interface UfcFighter {
+  name: string;
+  rank: string;
+  url: string;
+  imageUrl: string;
+  country: string;
+  countryFlagUrl: string;
+}

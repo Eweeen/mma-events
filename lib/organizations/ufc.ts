@@ -1,6 +1,12 @@
 "use server";
 
-import { Organizer, UfcEvent } from "@/types/event";
+import {
+  Organizer,
+  UfcEvent,
+  UfcFight,
+  UfcFightCard,
+  UfcFighter,
+} from "@/types/event";
 import * as cheerio from "cheerio";
 
 const UFC_URL = "https://www.ufc.com";
@@ -17,6 +23,12 @@ export async function getUfcPastEvents() {
   const res = await fetch(EVENTS_PAST, { next: { revalidate: 60 } });
   const html = await res.text();
   return parseFights(html, true);
+}
+
+export async function getUfcFightCard(url: string) {
+  const res = await fetch(UFC_URL + url, { next: { revalidate: 60 } });
+  const html = await res.text();
+  return parseCard(html);
 }
 
 function parseFights(html: string, isPast: boolean): UfcEvent[] {
@@ -93,4 +105,104 @@ function parseFights(html: string, isPast: boolean): UfcEvent[] {
   });
 
   return fights;
+}
+
+function parseCard(html: string): UfcFightCard {
+  const $ = cheerio.load(html);
+
+  const mainCard = parseFightCard($, "#main-card");
+  const prelims = parseFightCard($, "#prelims-card");
+  const earlyPrelims = parseFightCard($, "#early-prelims");
+
+  return { mainCard, prelims, earlyPrelims };
+}
+
+function parseFightCard(
+  $: cheerio.CheerioAPI,
+  selector: string,
+): { date: Date; fights: UfcFight[] } {
+  const fights: UfcFight[] = [];
+
+  const $container = $(selector).first();
+
+  const $timeEl = $container.find("time").first();
+  const date = $timeEl.attr("datetime")
+    ? new Date($timeEl.attr("datetime")!)
+    : new Date(NaN);
+
+  $container.find(".l-listing__item").each((index, fightEl) => {
+    const $fight = $(fightEl);
+
+    const weightClass = $fight.find(".c-listing-fight__class-text").first();
+
+    const $redCornerRank = $fight
+      .find(".js-listing-fight__corner-rank.c-listing-fight__corner-rank span")
+      .first();
+    const $blueCornerRank = $fight
+      .find(".js-listing-fight__corner-rank.c-listing-fight__corner-rank span")
+      .last();
+
+    const redCornerName = parseName($, $fight, "red");
+    const blueCornerName = parseName($, $fight, "blue");
+
+    const $redCorner = $fight
+      .find(".c-listing-fight__corner-image--red")
+      .first();
+    const $blueCorner = $fight
+      .find(".c-listing-fight__corner-image--blue")
+      .first();
+
+    const $redCountry = $fight
+      .find(".c-listing-fight__country.c-listing-fight__country--red")
+      .first();
+    const $blueCountry = $fight
+      .find(".c-listing-fight__country.c-listing-fight__country--blue")
+      .first();
+
+    const redCorner: UfcFighter = {
+      name: redCornerName,
+      rank: $redCornerRank.text(),
+      url: $redCorner.find("a").attr("href") ?? "",
+      imageUrl: $redCorner.find("img").attr("src") ?? "",
+      country: $redCountry.find(".c-listing-fight__country-text").text(),
+      countryFlagUrl: $redCountry.find("img").attr("src") ?? "",
+    };
+
+    const blueCorner: UfcFighter = {
+      name: blueCornerName,
+      rank: $blueCornerRank.text(),
+      url: $blueCorner.find("a").attr("href") ?? "",
+      imageUrl: $blueCorner.find("img").attr("src") ?? "",
+      country: $blueCountry.find(".c-listing-fight__country-text").text(),
+      countryFlagUrl: $blueCountry.find("img").attr("src") ?? "",
+    };
+
+    fights.push({
+      order: index,
+      weightClass: weightClass.text(),
+      redCorner,
+      blueCorner,
+    });
+  });
+
+  return { date, fights };
+}
+
+function parseName(
+  $: cheerio.CheerioAPI,
+  $fight: cheerio.Cheerio<any>,
+  corner: string,
+): string {
+  const selector = `.c-listing-fight__corner-name--${corner}`;
+  const nameContainer = $fight.find(selector).find("a span");
+
+  if (nameContainer.length === 0) {
+    return $fight.find(selector).find("a").text().trim();
+  } else {
+    let name = "";
+    nameContainer.each((_, nameEl) => {
+      name += $(nameEl).text().trim() + " ";
+    });
+    return name.trim();
+  }
 }

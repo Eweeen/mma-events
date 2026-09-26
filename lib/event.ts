@@ -1,5 +1,5 @@
 import { EventResponse } from "@/types/event";
-import { getUfcUpcomingEvents } from "./organizations/ufc";
+import { getUfcFightCard, getUfcUpcomingEvents } from "./organizations/ufc";
 import { getPflUpcomingEvents } from "./organizations/pfl";
 import { getKswUpcomingEvents } from "./organizations/ksw";
 import { getHexagoneUpcomingEvents } from "./organizations/hexagone";
@@ -31,4 +31,23 @@ export async function getUpcomingEvents(): Promise<EventResponse> {
     cageWarriorsEvents,
     aresEvents,
   };
+}
+
+export async function getFightCard(organizer: string, url: string) {
+  switch (organizer) {
+    case "UFC":
+      return await getUfcFightCard(url);
+    // case "PFL":
+    //   return await getPflFightCard(url);
+    // case "KSW":
+    //   return await getKswFightCard(url);
+    // case "Hexagone MMA":
+    //   return await getHexagoneFightCard(url);
+    // case "Cage Warriors":
+    //   return await getCageWarriorsFightCard(url);
+    // case "ARES FC":
+    //   return await getAresFightCard(url);
+    default:
+      throw new Error(`Unknown organizer: ${organizer}`);
+  }
 }

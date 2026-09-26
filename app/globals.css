@@ -63,11 +63,11 @@ html, body {
 .react-calendar__tile--active:focus,
 .react-calendar__tile--active.react-calendar__tile--now,
 .react-calendar__tile--active.react-calendar__tile--now:hover {
-  background-color: #006edc !important;
+  background-color: var(--blue) !important;
   color: #ffffff !important;
 }
 
 .react-calendar__tile--now, .react-calendar__tile--now:hover {
-  color: #006edc !important;
+  color: var(--blue) !important;
   background-color: inherit !important;
 }
